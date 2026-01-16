@@ -98,3 +98,5 @@ if not args.target:
         print(f"Open ports: {open_ports}")
     else:
         print("No open ports found.")
+        
+    
