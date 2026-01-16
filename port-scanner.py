@@ -66,21 +66,35 @@ parser.add_argument('--threads', '-t', type=int, help='Max threads to use, defau
 
 args = parser.parse_args()
 
-if '-' in args.ports:
-    start_port, end_port = map(int, args.ports.split('-'))
-    port_range = [start_port, end_port]
-else:
-    port_range = int(args.ports)
+if args.target:
 
+    if '-' in args.ports:
+        start_port, end_port = map(int, args.ports.split('-'))
+        port_range = [start_port, end_port]
+    else:
+        port_range = int(args.ports)
 
+    open_ports = scan_ports(args.target, port_range, args.threads)
+
+    if open_ports:
+        print(f"Open ports: {open_ports}")
+    else:
+        print("No open ports found.")
+        
 if not args.target:
-    print("Error: Target IP address is required.")
-    exit(1)
-
-
-open_ports = scan_ports(args.target, port_range, args.threads)
-
-if open_ports:
-    print(f"Open ports: {open_ports}")
-else:
-    print("No open ports found.")
+    target = input("Target IP address: ")
+    port_start = input("Starting port (default 1): ")
+    port_end = input("Ending port (default 10000): ")
+    threads = input("Max threads (default 100): ")
+    if not threads:
+        threads = 100
+    if not port_start:
+        port_start = 1
+    if not port_end:
+        port_end = 10000
+        
+    open_ports = scan_ports(target, [int(port_start), int(port_end)], int(threads))
+    if open_ports:
+        print(f"Open ports: {open_ports}")
+    else:
+        print("No open ports found.")
