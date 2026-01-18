@@ -10,15 +10,18 @@ Flags:
     --threads, -t THREADS   Max threads to use, default = 100
 
  
+Usage:
 
-example commands:
+port-scanner TARGET [-h] [-P] [-p PORTS] [-a] [-t THREADS] [-o] [-ol] [-on] [-od] 
 
-python3 port-scanner.py [IP ADDRESS]
+Examples:
 
-python3 port-scanner.py [IP ADDRESS] -p "1500"
+port-scanner [IP ADDRESS]
 
-python3 port-scanner.py [IP ADDRESS] -t 500
+port-scanner [IP ADDRESS] -p "1500"
 
-python3 port-scanner.py [IP ADDRESS] -p "65535" -t 1000
+port-scanner [IP ADDRESS] -t 500 -a
 
-python3 port-scanner.py [IP ADDRESS] -p "80-90" -t 1
+port-scanner [IP ADDRESS] -P -o
+
+port-scanner [IP ADDRESS] -p "80-90" -t 1
